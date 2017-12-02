@@ -54,7 +54,7 @@ DeathScene.prototype.draw = function() {
     Scene.prototype.draw.call(this);
     if (this.animationDone()) {
         drawRect(0, 0, BASE_HEIGHT * ASPECT_RATIO, BASE_HEIGHT, 'rgba(60, 0, 0, .8)', true);
-        drawText('You have died. Press any key to restart.', BASE_HEIGHT * ASPECT_RATIO / 2 - 200, BASE_HEIGHT / 2, 'VT323', '50px', '#fff', true);
+        drawText('You have died. Press any key to restart.', BASE_HEIGHT * ASPECT_RATIO / 2 - 200, BASE_HEIGHT / 2, 'VT323', 25, '#fff', true);
     }
 }
 
@@ -128,8 +128,8 @@ TitleScene.prototype.update = function() {
 
 TitleScene.prototype.draw = function() {
     drawRect(0, 0, canvasWidth, canvasHeight, '#000', true);
-    drawText('LDJAM (TBD)', BASE_HEIGHT * ASPECT_RATIO / 2 - 150, BASE_HEIGHT / 2 - 20, 'VT323', '140px', '#fff', true);
-    drawText('Press Any Key To Start', BASE_HEIGHT * ASPECT_RATIO / 2 - 60, BASE_HEIGHT / 2 + 25, 'VT323', '22px', '#fee', true);
+    drawText('LDJAM (TBD)', BASE_HEIGHT * ASPECT_RATIO / 2 - 150, BASE_HEIGHT / 2 - 20, 'VT323', 70, '#fff', true);
+    drawText('Press Any Key To Start', BASE_HEIGHT * ASPECT_RATIO / 2 - 100, BASE_HEIGHT / 2 + 25, 'VT323', 22, '#fee', true);
 }
 
 function CreditScene() {
@@ -151,6 +151,6 @@ CreditScene.prototype.fadeStrength = function() {
 
 CreditScene.prototype.draw = function() {
     drawRect(0, 0, canvasWidth, canvasHeight, '#000', true);
-    drawText('Created by Sam Randolph @rmtsukuru', 200, 100, 'VT323', '50px', '#bbf', true);
-    drawText('Other credits go here', 400, 250, 'VT323', '50px', '#bbf', true);
+    drawText('Created by Sam Randolph @rmtsukuru', 200, 100, 'VT323', 25, '#bbf', true);
+    drawText('Other credits go here', 400, 250, 'VT323', 25, '#bbf', true);
 }

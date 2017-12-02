@@ -63,15 +63,15 @@ function drawHud() {
     drawRect(3, 3, Math.max(0, player.health * 194 / 100), 14, HEALTH_UPGRADE_COLOR, true);
     hudXP = player.experience % 100;
     level = player.level();
-    drawText('LV ' + level, 3, 40, null, '40px', '#fff', true);
+    drawText('LV ' + level, 3, 43, null, 28, '#fff', true);
     drawRect(50, 25, 149, 20, '#fff', true);
     drawRect(52, 27, 145, 16, '#000', true);
     drawRect(52, 27, 145 * hudXP / 100, 16, '#0de', true);
 }
 
 function drawDebugHud() {
-    drawText('X: ' + player.x + ' Y: ' + player.y, 540, 10, null, '24px', '#2f2', true);
-    drawText('Tile X: ' + tileIndex(player.x) + ' Tile Y: ' + tileIndex(player.y), 540, 20, null, '24px', '#f2f', true);
+    drawText('X: ' + player.x + ' Y: ' + player.y, 480, 15, null, 18, '#2f2', true);
+    drawText('Tile X: ' + tileIndex(player.x) + ' Tile Y: ' + tileIndex(player.y), 480, 30, null, 18, '#f2f', true);
     if (minimapEnabled) {
         drawMinimap(true);
     }

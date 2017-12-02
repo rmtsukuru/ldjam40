@@ -88,6 +88,7 @@ function drawRect(x, y, width, height, color, ignoreCamera) {
 
 function drawText(text, x, y, font, fontSize, color, ignoreCamera) {
     font = font || 'VT323';
+    fontSize = fontSize * scalingFactor + 'px';
     graphicsContext.font = fontSize + ' ' + font;
     graphicsContext.fillStyle = color;
     if (ignoreCamera) {
