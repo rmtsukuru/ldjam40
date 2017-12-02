@@ -31,7 +31,7 @@ function Player(x, y) {
     Entity.call(this, x, y);
     this.width = PLAYER_SIZE;
     this.height = PLAYER_HEIGHT;
-    this.color = '#a22';
+    this.color = '#b72';
     this.swordDrawn = false;
     this.facing = directions.right;
     this.jumping = false;

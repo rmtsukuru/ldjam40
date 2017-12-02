@@ -49,7 +49,7 @@ Enemy.prototype.update = function() {
         this.flashTimer--;
     }
     else{
-        this.color = '#33b';
+        this.color = '#074';
         this.filter = null;
     }
     handleEntityCollision(this);
