@@ -103,13 +103,13 @@ updateCamera = function(target) {
         cameraX = 0;
     }
     else if (cameraX + canvasWidth > mapWidth) {
-        cameraX = mapWidth - canvasWidth;
+        cameraX = Math.max(0, mapWidth - canvasWidth);
     }
 
     if (cameraY < 0) {
         cameraY = 0;
     }
     else if (cameraY + canvasHeight > mapHeight) {
-        cameraY = mapHeight - canvasHeight;
+        cameraY = Math.max(0, mapHeight - canvasHeight);
     }
 }
