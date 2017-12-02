@@ -3,7 +3,7 @@ var entities = [];
 function drawTile(j, i, x) {
     switch(x) {
         case 1:
-            drawRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE, '#a80');
+            drawRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE, '#300');
             break;
         case 2:
             drawRect(j * TILE_SIZE, i * TILE_SIZE, TILE_SIZE, TILE_SIZE, '#00d');

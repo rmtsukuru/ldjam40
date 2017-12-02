@@ -67,7 +67,7 @@ function drawDebugHud() {
 }
 
 function draw() {
-    drawRect(0, 0, canvasWidth, canvasHeight, '#385867', true);
+    drawRect(0, 0, canvasWidth, canvasHeight, '#004247', true);
     drawBackgroundTiles();
     entities.forEach(function(entity, i) {
         entity.draw();
