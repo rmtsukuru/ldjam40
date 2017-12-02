@@ -34,7 +34,7 @@ function DeathScene() {
 DeathScene.prototype = Object.create(Scene.prototype);
 
 DeathScene.prototype.animationDone = function() {
-    return player.y > cameraY + canvasHeight + DEATH_FALL_BUFFER;
+    return player.y > cameraY + BASE_HEIGHT + DEATH_FALL_BUFFER;
 }
 
 DeathScene.prototype.update = function() {
@@ -53,8 +53,8 @@ DeathScene.prototype.update = function() {
 DeathScene.prototype.draw = function() {
     Scene.prototype.draw.call(this);
     if (this.animationDone()) {
-        drawRect(0, 0, canvasWidth, canvasHeight, 'rgba(60, 0, 0, .8)', true);
-        drawText('You have died. Press any key to restart.', canvasWidth / 2 - 400, canvasHeight / 2, 'VT323', '50px', '#fff', true);
+        drawRect(0, 0, BASE_HEIGHT * ASPECT_RATIO, BASE_HEIGHT, 'rgba(60, 0, 0, .8)', true);
+        drawText('You have died. Press any key to restart.', BASE_HEIGHT * ASPECT_RATIO / 2 - 200, BASE_HEIGHT / 2, 'VT323', '50px', '#fff', true);
     }
 }
 
