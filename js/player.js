@@ -41,6 +41,7 @@ function Player(x, y) {
     this.preloadImages();
     this.maxHP = PLAYER_HP_MAX;
     this.health = this.maxHP;
+    this.experience = 0;
     this.flinchTimer = 0;
     this.healing = false;
 }
@@ -58,22 +59,31 @@ Player.prototype.preloadImages = function() {
             loadImage('player-' + name + '-right' + i + '.png');
         }
     });
-}
+};
 
 Player.prototype.speed = function() {
     if (DEBUG_SPEED && keyState.shift) {
         return PLAYER_DEBUG_SPEED;
     }
     return PLAYER_SPEED;
-}
+};
 
 Player.prototype.gravityAmount = function() {
     return PLAYER_GRAVITY;
-}
+};
 
 Player.prototype.hasGravity = function() {
     return PLAYER_HAS_GRAVITY;
-}
+};
+
+Player.prototype.gainXP = function(base, enemyLevel) {
+    const converted = base * 2**(enemyLevel - this.level());
+    this.experience += Math.floor(converted);
+};
+
+Player.prototype.level = function() {
+    return 1 + Math.floor(this.experience / 100);
+};
 
 Player.prototype.update = function() {
     this.healing = false;

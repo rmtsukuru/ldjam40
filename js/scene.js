@@ -128,8 +128,8 @@ TitleScene.prototype.update = function() {
 
 TitleScene.prototype.draw = function() {
     drawRect(0, 0, canvasWidth, canvasHeight, '#000', true);
-    drawText('LDJAM (TBD)', canvasWidth / 2 - 300, canvasHeight / 2 - 40, 'VT323', '140px', '#fff', true);
-    drawText('Press Any Key To Start', canvasWidth / 2 - 115, canvasHeight / 2 + 50, 'VT323', '22px', '#fee', true);
+    drawText('LDJAM (TBD)', BASE_HEIGHT * ASPECT_RATIO / 2 - 150, BASE_HEIGHT / 2 - 20, 'VT323', '140px', '#fff', true);
+    drawText('Press Any Key To Start', BASE_HEIGHT * ASPECT_RATIO / 2 - 60, BASE_HEIGHT / 2 + 25, 'VT323', '22px', '#fee', true);
 }
 
 function CreditScene() {

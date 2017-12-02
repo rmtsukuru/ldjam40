@@ -91,7 +91,7 @@ function drawText(text, x, y, font, fontSize, color, ignoreCamera) {
     graphicsContext.font = fontSize + ' ' + font;
     graphicsContext.fillStyle = color;
     if (ignoreCamera) {
-        graphicsContext.fillText(text, x, y);
+        graphicsContext.fillText(text, x * scalingFactor, y * scalingFactor);
     }
     else {
         graphicsContext.fillText(text, (x - cameraX) * scalingFactor, (y - cameraY) * scalingFactor);

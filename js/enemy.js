@@ -4,12 +4,16 @@ const ENEMY_FLINCH_SPEED = 4;
 const ENEMY_FLINCH_FRAMES = 0.3 * FPS;
 const ENEMY_SPEED = 3;
 const ENEMY_DAMAGE = 10;
+const ENEMY_XP = 20;
+const ENEMY_LEVEL = 1;
 
 function Enemy(x, y, facingRight) {
     Entity.call(this, x, y);
     this.width = 30;
     this.height = 50;
     this.health = 30;
+    this.experience = ENEMY_XP;
+    this.level = ENEMY_LEVEL;
     this.facingRight = facingRight || false;
     this.strafeTimer = STRAFE_TIMER_FRAMES;
     loadImage('enemy-stand.png');
@@ -62,6 +66,7 @@ Enemy.prototype.handleEntityCollision = function(entity) {
         this.flashTimer = FLASH_TIMER_FRAMES;
         if (this.health <= 0) {
             this.remove();
+            player.gainXP(this.experience, this.level);
         }
         this.flinching = true;
         if (entity.x > this.x) {
