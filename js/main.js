@@ -4,6 +4,8 @@ var currentMap;
 
 var minimapEnabled = false;
 
+var initialConfigFrames = 1;
+
 window.onload = function() {
     configureGraphics();
     configureInput();
@@ -14,6 +16,10 @@ window.onload = function() {
     mainLoop = function() {
         scene.update();
         scene.draw();
+        if (initialConfigFrames > 0) {
+            initialConfigFrames--;
+            configureGraphics();
+        }
     };
     
     document.addEventListener("keydown", keyPressed);

@@ -39,6 +39,8 @@ function fetchImage(filename) {
 function configureGraphics(player) {
     canvas = document.getElementById('gameCanvas');
     graphicsContext = canvas.getContext('2d');
+    canvas.height = document.body.clientHeight;
+    canvas.width = Math.floor(canvas.height * ASPECT_RATIO);
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
 
