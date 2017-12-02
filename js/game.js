@@ -57,8 +57,6 @@ function drawHud() {
 }
 
 function drawDebugHud() {
-    drawText('Scaling: ' + scalingFactor, 0, 70, null, '40px', '#2ef', true);
-    drawText('Camera X: ' + cameraX + ' Y: ' + cameraY, 0, 120, null, '40px', '#2ef', true);
     drawText('X: ' + player.x + ' Y: ' + player.y, 1070, 20, 'Cambria', '24px', '#2f2', true);
     drawText('Tile X: ' + tileIndex(player.x) + ' Tile Y: ' + tileIndex(player.y), 1070, 48, 'Cambria', '24px', '#f2f', true);
     if (minimapEnabled) {
