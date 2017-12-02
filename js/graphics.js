@@ -79,7 +79,7 @@ function drawRect(x, y, width, height, color, ignoreCamera) {
         graphicsContext.fillRect(x * scalingFactor, y * scalingFactor, width * scalingFactor, height * scalingFactor);
     }
     else {
-        graphicsContext.fillRect((x - cameraX) * scalingFactor, (y - cameraY) * scalingFactor, width * scalingFactor, height * scalingFactor);
+        graphicsContext.fillRect(Math.floor((x - cameraX) * scalingFactor), Math.floor((y - cameraY) * scalingFactor), Math.ceil(width * scalingFactor), Math.ceil(height * scalingFactor));
     }
 }
 
