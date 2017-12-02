@@ -12,6 +12,7 @@ var keys = {
     space: 32,
     shift: 16,
     control: 17,
+    z: 90,
     x: 88,
 };
 
