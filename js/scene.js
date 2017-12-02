@@ -128,7 +128,7 @@ TitleScene.prototype.update = function() {
 
 TitleScene.prototype.draw = function() {
     drawRect(0, 0, canvasWidth, canvasHeight, '#000', true);
-    drawText('SLAY', canvasWidth / 2 - 130, canvasHeight / 2 - 40, 'VT323', '140px', '#fff', true);
+    drawText('LDJAM (TBD)', canvasWidth / 2 - 300, canvasHeight / 2 - 40, 'VT323', '140px', '#fff', true);
     drawText('Press Any Key To Start', canvasWidth / 2 - 115, canvasHeight / 2 + 50, 'VT323', '22px', '#fee', true);
 }
 
