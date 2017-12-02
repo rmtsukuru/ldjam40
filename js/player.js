@@ -48,6 +48,18 @@ function Player(x, y) {
 
 Player.prototype = Object.create(Entity.prototype);
 
+Player.prototype.reset = function() {
+    this.health = this.maxHP;
+    this.swordDrawn = false;
+    this.facing = directions.right;
+    this.jumping = false;
+    this.moving = false;
+    this.frameTimer = 0;
+    this.animationFrame = 0;
+    this.flinchTimer = 0;
+    this.healing = false;
+};
+
 Player.prototype.preloadImages = function() {
     _.keys(PLAYER_ANIMATIONS).forEach(function(animation) {
         var name = animation;

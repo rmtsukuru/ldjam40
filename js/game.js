@@ -6,8 +6,15 @@ var hudHP, hudHPTimer, hudHPDelayed;
 
 var upgradesCollected = [];
 
-function resetGame() {
-    player = new Player(300, 200); 
+function resetGame(initial) {
+    if (initial) {
+        player = new Player(300, 200); 
+    }
+    else {
+        player.x = 300;
+        player.y = 200;
+        player.reset();
+    }
     currentMap = STARTING_MAP;
     loadMap();
 
@@ -17,7 +24,7 @@ function resetGame() {
 }
 
 function configureGame() {
-    resetGame();
+    resetGame(true);
 }
 
 function update() {

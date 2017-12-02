@@ -10,7 +10,7 @@ window.onload = function() {
     configureGraphics();
     configureInput();
     configureAudio();
-    resetGame();
+    configureGame();
     scene = new TitleScene();
 
     mainLoop = function() {
