@@ -18,7 +18,6 @@ function Sword(x, y, horizontal) {
         this.height = SWORD_LENGTH;
     }
     this.color = '#ff0';
-    this.invisible = true;
     this.active = false;
     this.activationTimer = SWORD_TIMER_FRAMES;
     this.lifeTimer = SWORD_TTL_FRAMES;

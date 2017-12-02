@@ -3,8 +3,8 @@ const PLAYER_JUMP_MAX = 0.36 * FPS;
 const PLAYER_GRAVITY = 2;
 const PLAYER_HAS_GRAVITY = true;
 const PLAYER_DEBUG_SPEED = 10;
-const PLAYER_SIZE = 20;
-const PLAYER_HEIGHT = 60;
+const PLAYER_SIZE = 32;
+const PLAYER_HEIGHT = 64;
 const PLAYER_SPRITE_MULTIPLIER = 0.5;
 const PLAYER_FLINCH_SPEED = 8;
 const PLAYER_FLINCH_FRAMES = 0.3 * FPS;
@@ -107,7 +107,7 @@ Player.prototype.update = function() {
                     sword = new Sword(this.x + 10, this.y + 32);
                 }
                 entities.unshift(sword);
-                playSound('slice2', 0.3);
+                playSound('hit', 0.3);
                 this.swordDrawn = true;
                 this.animationFrame = 0;
             }
