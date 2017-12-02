@@ -41,7 +41,7 @@ function configureGraphics(player) {
     canvas = document.getElementById('gameCanvas');
     graphicsContext = canvas.getContext('2d');
     canvas.height = document.body.clientHeight;
-    scalingFactor = Math.round(canvas.height / BASE_HEIGHT * 10) / 10;
+    scalingFactor = Math.round(canvas.height / BASE_HEIGHT * 1000) / 1000;
     canvas.width = BASE_HEIGHT * ASPECT_RATIO * scalingFactor;
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
