@@ -3,6 +3,7 @@ var cameraY = 0;
 
 var canvas, graphicsContext;
 var canvasWidth, canvasHeight;
+var scalingFactor;
 
 var mapWidth = mapTileWidth * TILE_SIZE;
 var mapHeight = mapTileHeight * TILE_SIZE;
@@ -41,6 +42,7 @@ function configureGraphics(player) {
     graphicsContext = canvas.getContext('2d');
     canvas.height = document.body.clientHeight;
     canvas.width = Math.floor(canvas.height * ASPECT_RATIO);
+    scalingFactor = Math.round(canvas.height / BASE_HEIGHT * 10) / 10;
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
 
@@ -74,21 +76,22 @@ function drawImage(filename, x, y, ignoreCamera, filter) {
 function drawRect(x, y, width, height, color, ignoreCamera) {
     graphicsContext.fillStyle = color;
     if (ignoreCamera) {
-        graphicsContext.fillRect(x, y, width, height);
+        graphicsContext.fillRect(x * scalingFactor, y * scalingFactor, width * scalingFactor, height * scalingFactor);
     }
     else {
-        graphicsContext.fillRect(x - cameraX, y - cameraY, width, height);
+        graphicsContext.fillRect((x - cameraX) * scalingFactor, (y - cameraY) * scalingFactor, width * scalingFactor, height * scalingFactor);
     }
 }
 
 function drawText(text, x, y, font, fontSize, color, ignoreCamera) {
+    font = font || 'VT323';
     graphicsContext.font = fontSize + ' ' + font;
     graphicsContext.fillStyle = color;
     if (ignoreCamera) {
         graphicsContext.fillText(text, x, y);
     }
     else {
-        graphicsContext.fillText(text, x - cameraX, y - cameraY);
+        graphicsContext.fillText(text, (x - cameraX) * scalingFactor, (y - cameraY) * scalingFactor);
     }
 }
 

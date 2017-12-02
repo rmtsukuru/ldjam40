@@ -57,8 +57,8 @@ function drawHud() {
 }
 
 function drawDebugHud() {
-    drawText('X: ' + player.x + ' Y: ' + player.y, 802, 20, 'Cambria', '24px', '#2f2', true);
-    drawText('Tile X: ' + tileIndex(player.x) + ' Tile Y: ' + tileIndex(player.y), 802, 48, 'Cambria', '24px', '#f2f', true);
+    drawText('X: ' + player.x + ' Y: ' + player.y, 1070, 20, 'Cambria', '24px', '#2f2', true);
+    drawText('Tile X: ' + tileIndex(player.x) + ' Tile Y: ' + tileIndex(player.y), 1070, 48, 'Cambria', '24px', '#f2f', true);
     if (minimapEnabled) {
         drawMinimap(true);
     }
