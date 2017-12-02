@@ -11,14 +11,31 @@ var mapData = {
         tileWidth: mapTileWidth,
         tileHeight: mapTileHeight,
         tiles: [
+            [0, 11, 0],
             [1, 11, 0],
+            [0, 12, 0],
+            [1, 12, 0],
         ],
         entities: [
-            function() { return new Warp(-32, 608, 32, 96, 3, 950, 640); },
+            function() { return new Warp(-32, 352, 32, 64, 1, 540, 352); },
         ],
         onStartup: function() {
             console.log('Level 0 loaded');
         }
+    },
+    1: {
+        tileWidth: mapTileWidth,
+        tileHeight: mapTileHeight,
+        tiles: [
+            [18, 11, 0],
+            [19, 11, 0],
+            [18, 12, 0],
+            [19, 12, 0],
+        ],
+        entities: [
+            function() { return new Enemy(400, 352, false) },
+            function() { return new Warp(640, 352, 32, 64, 0, 64, 352); },
+        ],
     },
 };
 
