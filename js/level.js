@@ -174,6 +174,8 @@ function warpTo(mapX, mapY, x, y) {
     currentMapY = mapY;
     setMapId();
     loadMap();
+    x = x || player.x;
+    y = y || player.y;
     player.x = x;
     player.y = y;
 }

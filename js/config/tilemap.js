@@ -9,6 +9,7 @@ var tiles = [];
 
 var metaMap = [
     [1, 0],
+    [2, 3],
 ];
 
 var mapData = {
@@ -20,6 +21,10 @@ var mapData = {
             [1, 11, 0],
             [0, 12, 0],
             [1, 12, 0],
+            [15, 13, 0],
+            [16, 13, 0],
+            [15, 14, 0],
+            [16, 14, 0],
         ],
         entities: [
         ],
@@ -44,6 +49,26 @@ var mapData = {
             function() { return new Enemy(500, 232, false) },
             function() { return new Enemy(100, 200, true, 3) },
             function() { return new Enemy(700, 300, false, 2) },
+        ],
+    },
+    2: {
+        tileWidth: mapTileWidth,
+        tileHeight: mapTileHeight,
+        tiles: [
+        ],
+        entities: [
+        ],
+    },
+    3: {
+        tileWidth: mapTileWidth,
+        tileHeight: mapTileHeight,
+        tiles: [
+            [15, 0, 0],
+            [16, 0, 0],
+            [15, 1, 0],
+            [16, 1, 0],
+        ],
+        entities: [
         ],
     },
 };
@@ -94,14 +119,14 @@ function getWarps(mapX, mapY) {
     map = mapData[metaMap[currentMapY][currentMapX]];
     if (metaMap[currentMapY][currentMapX - 1]) {
         leftMap = mapData[metaMap[currentMapY][currentMapX - 1]];
-        warps.push(new Warp(-1 * TILE_SIZE, 0, TILE_SIZE, map.tileHeight * TILE_SIZE, currentMapX - 1, currentMapY, leftMap.tileWidth * TILE_SIZE - 3 * TILE_SIZE, player.y));
+        warps.push(new Warp(-1 * TILE_SIZE, 0, TILE_SIZE, map.tileHeight * TILE_SIZE, currentMapX - 1, currentMapY, leftMap.tileWidth * TILE_SIZE - 3 * TILE_SIZE, null));
     }
-    warps.push(new Warp(map.tileWidth * TILE_SIZE, 0, TILE_SIZE, map.tileHeight * TILE_SIZE, currentMapX + 1, currentMapY, 2 * TILE_SIZE, player.y));
+    warps.push(new Warp(map.tileWidth * TILE_SIZE, 0, TILE_SIZE, map.tileHeight * TILE_SIZE, currentMapX + 1, currentMapY, 2 * TILE_SIZE, null));
     if (metaMap[currentMapY - 1] && metaMap[currentMapY - 1][currentMapX]) {
         topMap = mapData[metaMap[currentMapY - 1][currentMapX]];
-        warps.push(new Warp(0, -1 * TILE_SIZE, map.tileWidth * TILE_SIZE, TILE_SIZE, currentMapX, currentMapY - 1, player.x, topMap.tileHeight * TILE_SIZE - 4 * TILE_SIZE));
+        warps.push(new Warp(0, -1 * TILE_SIZE, map.tileWidth * TILE_SIZE, TILE_SIZE, currentMapX, currentMapY - 1, null, topMap.tileHeight * TILE_SIZE - 4 * TILE_SIZE));
     }
-    warps.push(new Warp(0, map.tileHeight * TILE_SIZE, map.tileWidth * TILE_SIZE, TILE_SIZE, currentMapX, currentMapY + 1, player.x, TILE_SIZE * 2));
+    warps.push(new Warp(0, map.tileHeight * TILE_SIZE, map.tileWidth * TILE_SIZE, TILE_SIZE, currentMapX, currentMapY + 1, null, TILE_SIZE * 2));
     return warps;
 }
 
