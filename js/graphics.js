@@ -3,6 +3,7 @@ var cameraY = 0;
 
 var canvas, graphicsContext;
 var canvasWidth, canvasHeight;
+var baseWidth, baseHeight;
 var scalingFactor;
 
 var mapWidth = mapTileWidth * TILE_SIZE;
@@ -45,7 +46,9 @@ function configureGraphics(player) {
     if (Math.abs(Math.round(scalingFactor) - scalingFactor) < 0.01) {
         scalingFactor = Math.round(scalingFactor);
     }
-    canvas.width = BASE_HEIGHT * ASPECT_RATIO * scalingFactor;
+    baseWidth = BASE_HEIGHT * ASPECT_RATIO;
+    baseHeight = BASE_HEIGHT;
+    canvas.width = baseWidth * scalingFactor;
     canvasWidth = canvas.width;
     canvasHeight = canvas.height;
 
@@ -106,14 +109,14 @@ updateCamera = function(target) {
     if (cameraX < 0) {
         cameraX = 0;
     }
-    else if (cameraX + canvasWidth > mapWidth) {
-        cameraX = Math.max(0, mapWidth - canvasWidth);
+    else if (cameraX + baseWidth > mapWidth) {
+        cameraX = Math.max(0, mapWidth - baseWidth);
     }
 
     if (cameraY < 0) {
         cameraY = 0;
     }
-    else if (cameraY + canvasHeight > mapHeight) {
-        cameraY = Math.max(0, mapHeight - canvasHeight);
+    else if (cameraY + baseHeight > mapHeight) {
+        cameraY = Math.max(0, mapHeight - baseHeight);
     }
 }

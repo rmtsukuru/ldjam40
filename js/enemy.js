@@ -1,16 +1,18 @@
 const FLASH_TIMER_FRAMES = 0.05 * FPS;
-const STRAFE_TIMER_FRAMES = 1.8 * FPS;
-const ENEMY_FLINCH_SPEED = 4;
+const ENEMY_JUMP_MAX = 0.36 * FPS;
 const ENEMY_FLINCH_FRAMES = 0.3 * FPS;
-const ENEMY_SPEED = 3;
 
 const ENEMY_LEVELS = {
-    1: { behavior: 0, color: '#047', size: 32, hp: 3, damage: 1, xp: 20},
+    1: { behavior: 0, color: '#047', size: 32, hp: 3, damage: 1, xp: 20, speed: 3},
+    2: { behavior: 1, color: '#047', size: 64, hp: 6, damage: 2, xp: 50, speed: 2},
+    3: { behavior: 2, color: '#047', size: 128, hp: 20, damage: 4, xp: 100, speed: 5},
     4: { behavior: 0, color: '#074', size: 32, hp: 15, damage: 6, xp: 20},
 };
 
 const behaviors = {
     strafe: 0,
+    jump: 1,
+    charge: 2,
 };
 
 function Enemy(x, y, facingRight, level) {
@@ -46,9 +48,13 @@ Enemy.prototype.update = function() {
         if (this.behavior == behaviors.strafe) {
             this.strafe();
         }
+        else if (this.behavior == behaviors.jump) {
+            this.jump();
+        }
+        else if (this.behavior == behaviors.charge) {
+            this.charge();
+        }
     }
-    this.yVelocity = 0;
-    this.handleGravity();
     handleTileCollision(this);
     if (this.flashTimer > 0) {
         this.color = '#f22';
@@ -63,8 +69,13 @@ Enemy.prototype.update = function() {
     Entity.prototype.update.call(this);
 };
 
-Enemy.prototype.strafe = function(entity) {
-    this.xVelocity = ENEMY_SPEED;
+Enemy.prototype.detectionZone = function() {
+    const x = this.x - (this.facingRight ? TILE_SIZE * 2 : TILE_SIZE * 4);
+    return {x: x, y: this.y - TILE_SIZE, width: this.width + TILE_SIZE * 6, height: this.height + TILE_SIZE * 2};
+};
+
+Enemy.prototype.strafe = function() {
+    this.xVelocity = ENEMY_LEVELS[this.level].speed;
     if (!this.facingRight) {
         this.xVelocity *= -1;
     }
@@ -72,6 +83,50 @@ Enemy.prototype.strafe = function(entity) {
         !isTilePassable(this.nextTileX(), tileIndex(this.y))) {
         this.facingRight = !this.facingRight;
     }
+    this.yVelocity = 0;
+    this.handleGravity();
+};
+
+Enemy.prototype.jump = function() {
+    if (areColliding(player, this.detectionZone())) {
+        this.xVelocity = ENEMY_LEVELS[this.level].speed;
+        if (!this.facingRight) {
+            this.xVelocity *= -1;
+        }
+        if (this.onGround) {
+            this.facingRight = player.x >= this.x;
+            this.onGround = false;
+            this.jumpTimer = ENEMY_JUMP_MAX;
+            this.jumping = true
+        }
+    }
+    else if (this.onGround) {
+        this.xVelocity = 0;
+        this.handleGravity();
+    }
+    if (this.jumpTimer > 0 && !this.onGround && this.jumping) {
+        this.jumpTimer--;
+        this.handleGravity(true);
+    }
+    else {
+        this.jumpTimer = 0;
+        this.jumping = false;
+        this.handleGravity();
+    }
+};
+
+Enemy.prototype.charge = function() {
+    if (areColliding(player, this.detectionZone())) {
+        this.xVelocity = ENEMY_LEVELS[this.level].speed;
+        if (!this.facingRight) {
+            this.xVelocity *= -1;
+        }
+    }
+    else {
+        this.xVelocity = 0;
+    }
+    this.yVelocity = 0;
+    this.handleGravity();
 };
 
 Enemy.prototype.handleEntityCollision = function(entity) {
@@ -83,13 +138,12 @@ Enemy.prototype.handleEntityCollision = function(entity) {
             player.gainXP(this.experience, this.level);
         }
         this.flinching = true;
+        this.xVelocity = ENEMY_LEVELS[this.level].speed + 1;
         if (entity.x > this.x) {
-            this.xVelocity = -1 * ENEMY_FLINCH_SPEED;
-            this.facing = directions.right;
+            this.xVelocity *= -1;
         }
         else {
-            this.xVelocity = ENEMY_FLINCH_SPEED;
-            this.facing = directions.left;
+            this.facingRight = false;
         }
         this.flinchTimer = ENEMY_FLINCH_FRAMES;
     }
@@ -101,6 +155,10 @@ Enemy.prototype.damage = function(entity) {
 
 Enemy.prototype.draw = function() {
     if (SHOW_HITBOXES) {
+        if (this.behavior != behaviors.strafe) {
+            const detectionZone = this.detectionZone();
+            drawRect(detectionZone.x, detectionZone.y, detectionZone.width, detectionZone.height, '#e00');
+        }
         Entity.prototype.draw.call(this);
     }
     if (this.facingRight) {
