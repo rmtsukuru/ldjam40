@@ -3,22 +3,25 @@ const STRAFE_TIMER_FRAMES = 1.8 * FPS;
 const ENEMY_FLINCH_SPEED = 4;
 const ENEMY_FLINCH_FRAMES = 0.3 * FPS;
 const ENEMY_SPEED = 3;
-const ENEMY_DAMAGE = 10;
-const ENEMY_XP = 20;
-const ENEMY_LEVEL = 1;
+
+const ENEMY_LEVELS = {
+    1: { behavior: 0, color: '#047', size: 32, hp: 3, damage: 1, xp: 20},
+    4: { behavior: 0, color: '#074', size: 32, hp: 15, damage: 6, xp: 20},
+};
 
 const behaviors = {
     strafe: 0,
 };
 
-function Enemy(x, y, facingRight) {
+function Enemy(x, y, facingRight, level) {
     Entity.call(this, x, y);
-    this.width = 32;
-    this.height = 32;
-    this.health = 30;
-    this.experience = ENEMY_XP;
-    this.behavior = behaviors.strafe;
-    this.level = ENEMY_LEVEL;
+    level = level || 1;
+    this.level = level;
+    this.width = ENEMY_LEVELS[this.level].size;
+    this.height = ENEMY_LEVELS[this.level].size;
+    this.health = ENEMY_LEVELS[this.level].hp;
+    this.experience = ENEMY_LEVELS[this.level].xp;
+    this.behavior = ENEMY_LEVELS[this.level].behavior;
     this.facingRight = facingRight || false;
     loadImage('enemy-stand.png');
 }
@@ -53,7 +56,7 @@ Enemy.prototype.update = function() {
         this.flashTimer--;
     }
     else{
-        this.color = '#074';
+        this.color = ENEMY_LEVELS[this.level].color;
         this.filter = null;
     }
     handleEntityCollision(this);
@@ -93,7 +96,7 @@ Enemy.prototype.handleEntityCollision = function(entity) {
 };
 
 Enemy.prototype.damage = function(entity) {
-    return ENEMY_DAMAGE;
+    return ENEMY_LEVELS[this.level].damage;
 }
 
 Enemy.prototype.draw = function() {
