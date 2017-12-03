@@ -174,7 +174,7 @@ function warpTo(mapId, mapX, mapY) {
 function drawMinimap(ignoreCamera) {
     const width = tiles[0].length * 2 + 2;
     const height = tiles.length * 2;
-    const baseX = canvasWidth - width;
+    const baseX = BASE_HEIGHT * ASPECT_RATIO - width;
     drawRect(baseX - 2, 0, width + 4, height + 4, '#aaa', ignoreCamera);
     drawRect(baseX, 2, width - 2, height, '#000', ignoreCamera);
     for (var i = 0; i < tiles.length; i++) {
