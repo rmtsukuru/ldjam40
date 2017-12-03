@@ -268,7 +268,7 @@ Player.prototype.draw = function() {
 
 Player.prototype.handleEntityCollision = function(entity) {
     if (entity instanceof Warp) {
-        warpTo(entity.destinationMap, entity.destinationX, entity.destinationY);
+        warpTo(entity.destinationMapX, entity.destinationMapY, entity.destinationX, entity.destinationY);
     }
     else if (entity instanceof Fountain) {
         this.healing = true;

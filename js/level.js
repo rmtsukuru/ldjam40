@@ -158,17 +158,24 @@ function handleEntityCollision(entity) {
     });
 }
 
+function setMapId() {
+    currentMap = metaMap[currentMapY][currentMapX];
+}
+
 function loadMap() {
+    setMapId();
     fetchTiles();
     fetchEntities();
     handleMapStartup();
 }
 
-function warpTo(mapId, mapX, mapY) {
-    currentMap = mapId;
+function warpTo(mapX, mapY, x, y) {
+    currentMapX = mapX;
+    currentMapY = mapY;
+    setMapId();
     loadMap();
-    player.x = mapX;
-    player.y = mapY;
+    player.x = x;
+    player.y = y;
 }
 
 function drawMinimap(ignoreCamera) {

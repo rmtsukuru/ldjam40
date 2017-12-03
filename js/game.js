@@ -15,7 +15,8 @@ function resetGame(initial) {
         player.y = 200;
         player.reset();
     }
-    currentMap = STARTING_MAP;
+    currentMapX = STARTING_MAP_X;
+    currentMapY = STARTING_MAP_Y;
     loadMap();
 
     for (var i = 0; i < FPS; i++) {

@@ -2,9 +2,14 @@ const mapTileWidth = 20;
 const mapTileHeight = 15;
 
 const TILE_SIZE = 32;
-const STARTING_MAP = 0;
+const STARTING_MAP_X = 1;
+const STARTING_MAP_Y = 0;
 
 var tiles = [];
+
+var metaMap = [
+    [1, 0],
+];
 
 var mapData = {
     0: {
@@ -17,7 +22,6 @@ var mapData = {
             [1, 12, 0],
         ],
         entities: [
-            function() { return new Warp(-32, 352, 32, 64, 1, 1180, 352); },
         ],
         onStartup: function() {
             console.log('Level 0 loaded');
@@ -40,7 +44,6 @@ var mapData = {
             function() { return new Enemy(500, 232, false) },
             function() { return new Enemy(100, 200, true, 3) },
             function() { return new Enemy(700, 300, false, 2) },
-            function() { return new Warp(1280, 352, 32, 64, 0, 64, 352); },
         ],
     },
 };
@@ -86,6 +89,22 @@ function fetchTiles(mapId) {
     mapHeight = TILE_SIZE * tileHeight;
 }
 
+function getWarps(mapX, mapY) {
+    var warps = [];
+    map = mapData[metaMap[currentMapY][currentMapX]];
+    if (metaMap[currentMapY][currentMapX - 1]) {
+        leftMap = mapData[metaMap[currentMapY][currentMapX - 1]];
+        warps.push(new Warp(-1 * TILE_SIZE, 0, TILE_SIZE, map.tileHeight * TILE_SIZE, currentMapX - 1, currentMapY, leftMap.tileWidth * TILE_SIZE - 3 * TILE_SIZE, player.y));
+    }
+    warps.push(new Warp(map.tileWidth * TILE_SIZE, 0, TILE_SIZE, map.tileHeight * TILE_SIZE, currentMapX + 1, currentMapY, 2 * TILE_SIZE, player.y));
+    if (metaMap[currentMapY - 1] && metaMap[currentMapY - 1][currentMapX]) {
+        topMap = mapData[metaMap[currentMapY - 1][currentMapX]];
+        warps.push(new Warp(0, -1 * TILE_SIZE, map.tileWidth * TILE_SIZE, TILE_SIZE, currentMapX, currentMapY - 1, player.x, topMap.tileHeight * TILE_SIZE - 4 * TILE_SIZE));
+    }
+    warps.push(new Warp(0, map.tileHeight * TILE_SIZE, map.tileWidth * TILE_SIZE, TILE_SIZE, currentMapX, currentMapY + 1, player.x, TILE_SIZE * 2));
+    return warps;
+}
+
 function fetchEntities(mapId) {
     mapId = mapId || currentMap;
     entities = [];
@@ -96,6 +115,9 @@ function fetchEntities(mapId) {
         else {
             entities.push(entity);
         }
+    });
+    getWarps(currentMapX, currentMapY).forEach(function(warp, i) {
+        entities.push(warp);
     });
     entities.push(player);
 }
