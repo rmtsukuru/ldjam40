@@ -70,8 +70,8 @@ Enemy.prototype.update = function() {
 };
 
 Enemy.prototype.detectionZone = function() {
-    const x = this.x - (this.facingRight ? TILE_SIZE * 2 : TILE_SIZE * 4);
-    return {x: x, y: this.y - TILE_SIZE, width: this.width + TILE_SIZE * 6, height: this.height + TILE_SIZE * 2};
+    const x = this.x - (this.facingRight ? TILE_SIZE * 2 : TILE_SIZE * 6);
+    return {x: x, y: this.y - TILE_SIZE, width: this.width + TILE_SIZE * 8, height: this.height + TILE_SIZE * 2};
 };
 
 Enemy.prototype.strafe = function() {
@@ -90,14 +90,14 @@ Enemy.prototype.strafe = function() {
 Enemy.prototype.jump = function() {
     if (areColliding(player, this.detectionZone())) {
         this.xVelocity = ENEMY_LEVELS[this.level].speed;
-        if (!this.facingRight) {
-            this.xVelocity *= -1;
-        }
         if (this.onGround) {
             this.facingRight = player.x >= this.x;
             this.onGround = false;
             this.jumpTimer = ENEMY_JUMP_MAX;
             this.jumping = true
+        }
+        if (!this.facingRight) {
+            this.xVelocity *= -1;
         }
     }
     else if (this.onGround) {
@@ -118,6 +118,7 @@ Enemy.prototype.jump = function() {
 Enemy.prototype.charge = function() {
     if (areColliding(player, this.detectionZone())) {
         this.xVelocity = ENEMY_LEVELS[this.level].speed;
+        this.facingRight = player.x >= this.x;
         if (!this.facingRight) {
             this.xVelocity *= -1;
         }
