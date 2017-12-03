@@ -7,19 +7,27 @@ const ENEMY_DAMAGE = 10;
 const ENEMY_XP = 20;
 const ENEMY_LEVEL = 1;
 
+const behaviors = {
+    strafe: 0,
+};
+
 function Enemy(x, y, facingRight) {
     Entity.call(this, x, y);
-    this.width = 30;
-    this.height = 50;
+    this.width = 32;
+    this.height = 32;
     this.health = 30;
     this.experience = ENEMY_XP;
+    this.behavior = behaviors.strafe;
     this.level = ENEMY_LEVEL;
     this.facingRight = facingRight || false;
-    this.strafeTimer = STRAFE_TIMER_FRAMES;
     loadImage('enemy-stand.png');
 }
 
 Enemy.prototype = Object.create(Entity.prototype);
+
+Enemy.prototype.nextTileX = function() {
+    return this.facingRight ? tileIndex(this.x) + 1 : tileIndex(this.x - 1);
+}
 
 Enemy.prototype.update = function() {
     if (this.flinching) {
@@ -32,16 +40,8 @@ Enemy.prototype.update = function() {
         }
     }
     else {
-        this.xVelocity = ENEMY_SPEED;
-        if (!this.facingRight) {
-            this.xVelocity *= -1;
-        }
-        if (this.strafeTimer > 0) {
-            this.strafeTimer--;
-        }
-        else {
-            this.strafeTimer = STRAFE_TIMER_FRAMES;
-            this.facingRight = !this.facingRight;
+        if (this.behavior == behaviors.strafe) {
+            this.strafe();
         }
     }
     this.yVelocity = 0;
@@ -58,6 +58,17 @@ Enemy.prototype.update = function() {
     }
     handleEntityCollision(this);
     Entity.prototype.update.call(this);
+};
+
+Enemy.prototype.strafe = function(entity) {
+    this.xVelocity = ENEMY_SPEED;
+    if (!this.facingRight) {
+        this.xVelocity *= -1;
+    }
+    if (isTilePassable(this.nextTileX(), tileIndex(this.y) + 1) ||
+        !isTilePassable(this.nextTileX(), tileIndex(this.y))) {
+        this.facingRight = !this.facingRight;
+    }
 };
 
 Enemy.prototype.handleEntityCollision = function(entity) {
