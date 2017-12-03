@@ -98,7 +98,14 @@ Player.prototype.level = function() {
     return 1 + Math.floor(this.experience / 100);
 };
 
+Player.prototype.maxHP
+
+Player.prototype.damage = function() {
+    return 1 * 2**(this.level() - 1);
+};
+
 Player.prototype.update = function() {
+    this.maxHP = PLAYER_HP_MAX * this.level();
     this.healing = false;
     if (this.flinching) {
         if (this.flinchTimer > 0) {

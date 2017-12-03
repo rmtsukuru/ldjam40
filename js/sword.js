@@ -63,7 +63,7 @@ Sword.prototype.damage = function(entity) {
         return SWORD_DEBUG_DAMAGE;
     }
     else {
-        return SWORD_DAMAGE;
+        return player.damage();
     }
 }
 
