@@ -41,7 +41,7 @@ function Player(x, y) {
     this.preloadImages();
     this.maxHP = PLAYER_HP_MAX;
     this.health = this.maxHP;
-    this.experience = 0;
+    this.experience = 50;
     this.flinchTimer = 0;
     this.healing = false;
 }
@@ -58,6 +58,7 @@ Player.prototype.reset = function() {
     this.animationFrame = 0;
     this.flinchTimer = 0;
     this.healing = false;
+    this.experience = Math.max(0, this.experience - DEATH_PENALTY);
 };
 
 Player.prototype.preloadImages = function() {
