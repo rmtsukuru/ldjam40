@@ -156,7 +156,7 @@ Enemy.prototype.damage = function(entity) {
 
 Enemy.prototype.draw = function() {
     if (SHOW_HITBOXES) {
-        if (this.behavior != behaviors.strafe) {
+        if (SHOW_DETECTION_ZONES && this.behavior != behaviors.strafe) {
             const detectionZone = this.detectionZone();
             drawRect(detectionZone.x, detectionZone.y, detectionZone.width, detectionZone.height, '#e00');
         }

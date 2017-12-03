@@ -8,4 +8,5 @@ const DEBUG_SPEED = false;
 const DEBUG_KILL = true;
 const DEBUG_DAMAGE = false;
 const SHOW_HITBOXES = true;
+const SHOW_DETECTION_ZONES = false;
 const DEATH_PENALTY = 10;
