@@ -103,8 +103,8 @@ function drawText(text, x, y, font, fontSize, color, ignoreCamera) {
 }
 
 updateCamera = function(target) {
-    cameraX = target.x - canvasWidth / 2;
-    cameraY = target.y - canvasHeight / 2;
+    cameraX = target.x - baseWidth / 2;
+    cameraY = target.y - baseHeight / 2;
 
     if (cameraX < 0) {
         cameraX = 0;
