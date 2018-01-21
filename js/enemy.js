@@ -1,6 +1,7 @@
 const FLASH_TIMER_FRAMES = 0.05 * FPS;
 const ENEMY_JUMP_MAX = 0.36 * FPS;
 const ENEMY_FLINCH_FRAMES = 0.3 * FPS;
+const ENEMY_JUMP_COOLDOWN = 0.2 * FPS;
 
 const ENEMY_LEVELS = {
     1: { behavior: 0, color: '#047', size: 32, hp: 3, damage: 1, xp: 20, speed: 3},
@@ -25,6 +26,7 @@ function Enemy(x, y, facingRight, level) {
     this.experience = ENEMY_LEVELS[this.level].xp;
     this.behavior = ENEMY_LEVELS[this.level].behavior;
     this.facingRight = facingRight || false;
+    this.jumpCooldownTimer = ENEMY_JUMP_COOLDOWN;
     loadImage('enemy-stand.png');
 }
 
@@ -92,9 +94,15 @@ Enemy.prototype.jump = function() {
         this.xVelocity = ENEMY_LEVELS[this.level].speed;
         if (this.onGround) {
             this.facingRight = player.x >= this.x;
-            this.onGround = false;
-            this.jumpTimer = ENEMY_JUMP_MAX;
-            this.jumping = true
+            if (this.jumpCooldownTimer <= 0) {
+                this.jumpCooldownTimer = ENEMY_JUMP_COOLDOWN;
+                this.onGround = false;
+                this.jumpTimer = ENEMY_JUMP_MAX;
+                this.jumping = true;
+            }
+            else {
+                this.jumpCooldownTimer--;
+            }
         }
         if (!this.facingRight) {
             this.xVelocity *= -1;
